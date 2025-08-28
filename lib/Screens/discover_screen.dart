@@ -15,6 +15,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+    return const Scaffold(
+      body: Center(
+        child: Text("Discover Screen"),
+      ),
+=======
+>>>>>>> Stashed changes
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: ListView(
@@ -23,7 +32,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             children: [
               Container(
                 width: double.infinity,
+<<<<<<< Updated upstream
                 height: 300,
+=======
+                height: 275,
+>>>>>>> Stashed changes
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
@@ -31,7 +44,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                   image: DecorationImage(
                     image: const NetworkImage("https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg"),
+<<<<<<< Updated upstream
                     image: const NetworkImage("https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg"),
+=======
+>>>>>>> Stashed changes
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withValues(alpha: 0.5), BlendMode.darken),
@@ -242,6 +258,10 @@ final String facilityName;
         ),
         Text(facilityName)
       ],
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     );
   }
 }
