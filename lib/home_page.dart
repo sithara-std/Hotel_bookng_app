@@ -3,6 +3,7 @@ import 'package:hotel_booking_app/Screens/booking_screen.dart';
 import 'package:hotel_booking_app/Screens/discover_screen.dart';
 import 'package:hotel_booking_app/Screens/favourite_screen.dart';
 import 'package:hotel_booking_app/Screens/message_screen.dart';
+import 'package:hotel_booking_app/Services/firebase_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
+
   int screenNo = 0;
   
   List<Widget> screenList = const [
@@ -22,6 +23,14 @@ class _HomePageState extends State<HomePage> {
     MessageScreen(),
   ];
   
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseServices.getHotels();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
