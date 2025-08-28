@@ -8,9 +8,9 @@ class FirebaseServices {
     
     
 
-    hotels.docs.forEach((hotels){
+    for (var hotels in hotels.docs) {
       print(hotels["title"]);
-    });
+    }
 
     print(hotels.docs[0]["prices"]);
   }
