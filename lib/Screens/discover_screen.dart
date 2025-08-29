@@ -1,7 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_app/Models/hotel.dart';
+import 'package:hotel_booking_app/Providers/hotel_provider.dart';
 import 'package:hotel_booking_app/Utilities/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -133,77 +136,89 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           const Text("The Most Relevant"),
           SizedBox(
             height: 350,
-            child: ListView.builder(
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: AppColors.primaryColor),
-                    width: 300,
-                    height: 250,
-                    child: Column(
-                      children: [
-                        Stack(
+            child: Consumer<HotelProvider>(
+              builder: (context,hotels,child) {
+                print(hotels.hotelsData);
+
+                List<Hotel> allHotelData = hotels.hotelsData;
+                return hotels.hotelsData.isEmpty 
+                ? const Center(
+                  child: CircularProgressIndicator(),
+                  )
+                :ListView.builder(
+                  itemCount: allHotelData.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            color: AppColors.primaryColor),
+                        width: 300,
+                        height: 250,
+                        child: Column(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(40),
-                              child: Image.network(
-                                  "https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg"),
-                            ),
-                            Positioned(
-                              top: 20,
-                              right: 30,
-                              child: Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(35),
-                                    color: const Color.fromARGB(87, 0, 0, 0)),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.favorite_outline,
-                                    color: AppColors.primaryColor,
-                                  ),
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(40),
+                                  child: Image.network(allHotelData[index].mainImages!),
+                                    
                                 ),
+                                Positioned(
+                                  top: 20,
+                                  right: 30,
+                                  child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(35),
+                                        color: const Color.fromARGB(87, 0, 0, 0)),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.favorite_outline,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(allHotelData[index].title!),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.star),
+                                      Text("${allHotelData[index].rating}"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                           Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children:List.generate(
+                                  allHotelData[index].amanities!.length, 
+                                  (findex)=>FacilityItem(
+                                    facilityName: allHotelData[index].amanities![findex],
+                                    ),
+                                  )
                               ),
                             )
                           ],
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Tiny Home in Rolingen"),
-                              Row(
-                                children: [
-                                  Icon(Icons.star),
-                                  Text("4.96(217)"),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FacilityItem(facilityName: "4 guests"),
-                              FacilityItem(facilityName: "2 bedrooms"),
-                              FacilityItem(facilityName: "2 bathrooms"),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  }
                 );
-              },
+              }
             ),
           )
         ],
