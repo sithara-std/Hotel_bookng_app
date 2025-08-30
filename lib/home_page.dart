@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/Providers/hotel_provider.dart';
-import 'package:hotel_booking_app/Screens/booking_screen.dart';
-import 'package:hotel_booking_app/Screens/discover_screen.dart';
-import 'package:hotel_booking_app/Screens/favourite_screen.dart';
-import 'package:hotel_booking_app/Screens/message_screen.dart';
+import 'package:hotel_booking_app/Screens/main/booking_screen.dart';
+import 'package:hotel_booking_app/Screens/main/discover_screen.dart';
+import 'package:hotel_booking_app/Screens/main/favourite_screen.dart';
+import 'package:hotel_booking_app/Screens/main/message_screen.dart';
 import 'package:hotel_booking_app/Services/firebase_services.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     FirebaseServices.getHotels().then((hotelsData){
       context.read<HotelProvider>().addHotels(hotels: hotelsData);
